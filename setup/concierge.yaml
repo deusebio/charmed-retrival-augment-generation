@@ -19,7 +19,7 @@ providers:
 
   lxd:
     enable: true
-    bootstrap: false
+    bootstrap: true
     channel: latest/stable
 
 host:

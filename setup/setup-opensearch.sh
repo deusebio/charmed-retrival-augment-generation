@@ -1,7 +1,5 @@
 #!/bin/bash
 
-juju bootstrap localhost overlord
-
 juju add-model opensearch
 
 sudo tee -a /etc/sysctl.conf > /dev/null <<EOT
