@@ -1,0 +1,15 @@
+#!/bin/bash
+
+sudo snap install terraform --channel latest/stable --classic 
+sudo snap install concierge --classic 
+sudo snap install juju --channel 3.6/stable --classic
+
+sudo concierge prepare --trace
+
+sudo apt-get install curl gpg apt-transport-https --yes
+curl -fsSL https://packages.buildkite.com/helm-linux/helm-debian/gpgkey | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/helm.gpg] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+
+git clone git@github.com:canonical/charmed-kubeflow-solutions.git

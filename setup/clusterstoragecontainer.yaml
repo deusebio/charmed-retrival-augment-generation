@@ -1,0 +1,34 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ClusterStorageContainer
+metadata:
+  name: default
+spec:
+  container:
+    env:
+    - name: HF_TOKEN
+      valueFrom:
+        secretKeyRef:
+          key: HF_TOKEN
+          name: hf-secret
+          optional: false
+    image: docker.io/charmedkubeflow/storage-initializer:0.17.0-07d37fb
+    imagePullPolicy: IfNotPresent
+    name: storage-initializer
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+  supportedUriFormats:
+  - prefix: gs://
+  - prefix: s3://
+  - prefix: hdfs://
+  - prefix: hf://
+  - prefix: webhdfs://
+  - regex: https://(.+?).blob.core.windows.net/(.+)
+  - regex: https://(.+?).file.core.windows.net/(.+)
+  - regex: https?://(.+)/(.+)
+  supportsMultiModelDownload: false
+  workloadType: initContainer

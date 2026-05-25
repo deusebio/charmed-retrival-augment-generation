@@ -1,0 +1,10 @@
+job_queue: sparky
+provision_data:
+  distro: noble
+reserve_data:
+  ssh_keys:
+    - lp:deusebio
+  timeout: 21600 # 6 hours
+test_data:
+  test_cmds: |
+    ssh -t ubuntu@$DEVICE_IP lsb_release -a
